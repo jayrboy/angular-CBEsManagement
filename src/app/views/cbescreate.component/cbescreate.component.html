@@ -1,0 +1,170 @@
+<ng-container *ngIf="datafromapi == true; else loadingsuccess">
+  <div class="card d-flex">
+    <section class="section_form">
+      <form id="consultation-form" class="feed-form" action="#">
+        <h1 class="border-3 border-dark border-bottom">จัดการหลักเกณฑ์ CBEs</h1>
+
+        <label for="thainame">ชื่อภาษาไทย</label>
+        <input
+          name="thainame"
+          type="text"
+          [(ngModel)]="CBEs.thaiName"
+          required
+        />
+
+        <label for="engname">ชื่อภาษาอังกฤษ</label>
+        <input name="engname" type="text" [(ngModel)]="CBEs.engName" required />
+
+        <label for="shortname">ตัวย่อ</label>
+        <input
+          name="shortname"
+          type="text"
+          [(ngModel)]="CBEs.shortName"
+          required
+        />
+
+        <label for="round">รอบการแก้ไข</label>
+        <select name="round" [(ngModel)]="selectedRound">
+          <option *ngFor="let round of roundOptions" [value]="round">
+            {{ round }}
+          </option>
+        </select>
+
+        <label for="remark">หมายเหตุในการบันทึก</label>
+        <textarea
+          name="remark"
+          placeholder="หมายเหตุการแก้ไข"
+          [(ngModel)]="CBEs.detail"
+        ></textarea>
+        <small>*ต้องกรอกหมายเหตุก่อนแก้ไข</small>
+
+        <div class="mt-3 border-3 border-dark border-top">
+          <div class="d-flex mt-3">
+            <h3>หลักเกณฑ์</h3>
+            <button class="ms-3 mb-3" (click)="addProcess()">
+              เพิ่มกระบวนการ
+            </button>
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                <th>กระบวนการ</th>
+                <th>ประเด็น</th>
+                <th>ประเด็นย่อย</th>
+                <th>น้ำหนัก</th>
+                <th>จัดการ</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <!-- Level 1 -->
+              <ng-container *ngFor="let process of CBEs.cbesProcesses">
+                <tr *ngIf="process.isDeleted != true">
+                  <td>
+                    <textarea
+                      placeholder="level 1"
+                      matInput
+                      [(ngModel)]="process.name"
+                      name="processName"
+                      #name="ngModel"
+                      [ngModelOptions]="{ standalone: true }"
+                    ></textarea>
+                  </td>
+                  <td></td>
+                  <td></td>
+                  <td>
+                    <input
+                      type="number"
+                      style="width: 75px; text-align: center"
+                      [value]="process.weight"
+                    />
+                  </td>
+
+                  <!-- Column for buttons -->
+                  <td>
+                    <button (click)="deleteProcess(process)">ลบ</button>
+                    <button (click)="addChildProcess(process)">
+                      เพิ่มประเด็น
+                    </button>
+                  </td>
+                </tr>
+
+                <!-- Level 2 -->
+                <ng-container *ngFor="let p of process.inverseProcessHeader">
+                  <tr *ngIf="p.isDeleted != true">
+                    <td></td>
+                    <td>
+                      <textarea
+                        placeholder="level 2"
+                        matInput
+                        [(ngModel)]="p.name"
+                        name="subName"
+                        #name="ngModel"
+                        [ngModelOptions]="{ standalone: true }"
+                      ></textarea>
+                    </td>
+                    <td></td>
+                    <td>
+                      <input
+                        type="number"
+                        style="width: 75px; text-align: center"
+                        [value]="p.weight"
+                      />
+                    </td>
+                    <td>
+                      <button (click)="deleteProcess(p)">ลบ</button>
+                      <button (click)="addChildProcess(p)">เพิ่มประเด็น</button>
+                    </td>
+                  </tr>
+
+                  <!-- Level 3 -->
+                  <ng-container *ngFor="let sp of p.inverseProcessHeader">
+                    <tr *ngIf="sp.isDeleted != true">
+                      <td></td>
+                      <td></td>
+                      <td>
+                        <textarea
+                          placeholder="level 2"
+                          matInput
+                          [(ngModel)]="sp.name"
+                          name="subProcessName"
+                          #name="ngModel"
+                          [ngModelOptions]="{ standalone: true }"
+                        ></textarea>
+                      </td>
+                      <td>
+                        <input
+                          type="number"
+                          style="width: 75px; text-align: center"
+                          [value]="sp.weight"
+                        />
+                      </td>
+                      <td>
+                        <button (click)="deleteProcess(sp)">ลบ</button>
+                      </td>
+                    </tr>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+            </tbody>
+          </table>
+          <div class="d-flex mt-3 mb-3">
+            <button
+              style="width: fit-content"
+              (click)="onSave2Maturity()"
+              [routerLink]="['/CBEs/maturity/create']"
+            >
+              บันทึกและไปกำหนด Maturity
+            </button>
+            <button (click)="onSubmit()">บันทึก</button>
+          </div>
+        </div>
+      </form>
+    </section>
+  </div>
+</ng-container>
+
+<ng-template #loadingsuccess>
+  <loading-page />
+</ng-template>

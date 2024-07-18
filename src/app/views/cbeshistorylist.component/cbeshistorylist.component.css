@@ -1,0 +1,112 @@
+
+
+.btn{
+  width: fit-content;
+  height: fit-content;
+}
+
+.card{
+  width: 95vw;
+  height: auto;
+  margin: auto;
+}
+.feed-form {
+  margin-left: 20px;
+  margin-top: 36px;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+
+}
+
+.feed-form input {
+  height: 33px;
+  border-radius: 5px;
+  background: white;
+  margin-bottom: 15px;
+  padding: 0 20px;
+  font-weight: 300;
+  font-size: 14px;
+  color: #4B4B4B;
+  cursor: pointer;
+
+}
+
+
+
+
+.feed-form select {
+  cursor: pointer;
+  height: 33px;
+  border-radius: 5px;
+  background: white;
+  margin-bottom: 15px;
+  padding: 0 20px;
+  font-weight: 300;
+  font-size: 14px;
+  color: #4B4B4B;
+
+}
+
+
+small {
+  font-size: 0.8rem; /* ขนาดตัวหนังสือเล็ก */
+  color: #ff0000;
+}
+button{
+  height: 30px;
+  width: auto;
+  border-width: 2.2px;
+  border-radius: 10px;
+  border-color: rgb(71, 60, 60);
+  margin: 2px;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease,background-color 0.3s ease
+}
+
+button:hover{
+  box-shadow: 5px 5px 10px rgb(71, 60, 60);
+  background-color: #fff;
+}
+
+table{
+  border-color: rgb(71, 60, 60);
+  box-shadow: 5px 5px 10px rgb(71, 60, 60);
+  border-collapse:rgb(71, 60, 60);
+
+}
+
+th{
+  background-color: rgb(71, 60, 60);
+  color: #fff;
+  font-size: large;
+  padding: 10px;
+  text-align: center;
+
+}
+td {
+  padding: 8px;
+  text-align: left;
+  border: 1px solid rgb(0, 0, 0);
+}
+.level1 {
+  background:#4b4b4b8c
+}
+
+/* CSS */
+.containerMain {
+  display: flex;
+  justify-content: center; /* จัดให้อยู่ตรงกลางตามแนวนอน */
+  align-items: center; /* จัดให้อยู่ตรงกลางตามแนวตั้ง */
+  height: 30vh; /* ทำให้ขยับได้ตามความสูงของหน้าจอ */
+}
+
+.content {
+  width: 300px; /* กำหนดความกว้างของ content */
+  height: 200px; /* กำหนดความสูงของ content */
+  background-color: #f0f0f0;
+  text-align: center; /* จัดให้อยู่ตรงกลางเนื้อหา */
+  line-height: 200px; /* จัดให้อยู่ตรงกลางแนวตั้ง */
+}
+
+
