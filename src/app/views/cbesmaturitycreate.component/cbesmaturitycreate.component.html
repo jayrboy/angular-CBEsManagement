@@ -8,6 +8,7 @@
         required=""
         placeholder="ชื่อหัวข้อภาษาไทย"
         type="text"
+        [(ngModel)]="CBEs.thaiName"
         disabled
       />
       <label for="engname">ชื่อภาษาอังกฤษ</label>
@@ -16,6 +17,7 @@
         required=""
         placeholder="ชื่อหัวข้อภาษาอังกฤษ"
         type="text"
+        [(ngModel)]="CBEs.engName"
         disabled
       />
       <label for="shortname">ตัวย่อ</label>
@@ -24,9 +26,11 @@
         required=""
         placeholder="ตัวย่อ"
         type="text"
+        [(ngModel)]="CBEs.shortName"
         disabled
       />
       <label for="round">รอบการแก้ไข</label>
+
       <select name="round">
         <option>1</option>
         <option>2</option>
@@ -52,6 +56,7 @@
               <th colspan="3">Maturity level</th>
             </tr>
           </thead>
+
           <tbody>
             <tr>
               <th colspan="3" class="text-start ms-4 level1">level1</th>
@@ -66,6 +71,7 @@
               </th>
               <th class="level1" colspan="3"></th>
             </tr>
+
             <tr>
               <th colspan="3" class="level2 text-start ms-2">level2</th>
               <th class="level2">
@@ -78,6 +84,7 @@
               </th>
               <th class="level2" colspan="3"></th>
             </tr>
+
             <tr>
               <th colspan="3" class="text-start ms-2">level3</th>
               <th>
@@ -90,21 +97,25 @@
               </th>
               <th colspan="3">ระดับ 1:<textarea></textarea></th>
             </tr>
+
             <tr>
               <th colspan="3" class="text-start ms-2"></th>
               <th></th>
               <th colspan="3">ระดับ 2:<textarea></textarea></th>
             </tr>
+
             <tr>
               <th colspan="3" class="text-start ms-2"></th>
               <th></th>
               <th colspan="3">ระดับ 3:<textarea></textarea></th>
             </tr>
+
             <tr>
               <th colspan="3" class="text-start ms-2"></th>
               <th></th>
               <th colspan="3">ระดับ 4:<textarea></textarea></th>
             </tr>
+
             <tr>
               <th colspan="3" class="text-start ms-2"></th>
               <th></th>

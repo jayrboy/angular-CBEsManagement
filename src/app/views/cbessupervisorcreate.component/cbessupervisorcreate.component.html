@@ -107,21 +107,28 @@
                 <th>ผู้รับผิดชอบ</th>
               </tr>
             </thead>
+
             <tbody>
-              <tr>
-                <td colspan="3" class="text-start ms-4 level1">level1</td>
-                <td class="level1">
-                  <input
-                    class="level1"
-                    type="number"
-                    placeholder="20"
-                    style="width: 75px; text-align: center"
-                    disabled
-                  />
-                </td>
-                <td class="level1" colspan="3"></td>
-                <td class="level1"></td>
-              </tr>
+              <ng-container *ngFor="let process of CBEs.cbesProcesses">
+                <tr *ngIf="process.isDeleted != true">
+                  <td colspan="3" class="text-start ms-4 level1">level1</td>
+                  <td class="level1">
+                    <input
+                      class="level1"
+                      type="number"
+                      placeholder="20"
+                      style="width: 75px; text-align: center"
+                      value="{{ process.weight }}"
+                      disabled
+                    />
+                  </td>
+                  <td class="level1" colspan="3"></td>
+                  <td class="level1"></td>
+                </tr>
+              </ng-container>
+
+              <!--  -->
+              <!--  -->
               <tr>
                 <td colspan="3" class="text-start ms-2">level2</td>
                 <td>
@@ -135,6 +142,7 @@
                 <td colspan="3"></td>
                 <td></td>
               </tr>
+
               <tr>
                 <td colspan="3" class="text-start ms-2">level3</td>
                 <td>
@@ -173,6 +181,7 @@
                   </table>
                 </td>
               </tr>
+
               <tr>
                 <td colspan="3" class="text-start ms-2"></td>
                 <td></td>
@@ -203,6 +212,7 @@
                   </table>
                 </td>
               </tr>
+
               <tr>
                 <td colspan="3" class="text-start ms-2"></td>
                 <td></td>
@@ -234,6 +244,7 @@
                   </table>
                 </td>
               </tr>
+
               <tr>
                 <td colspan="3" class="text-start ms-2"></td>
                 <td></td>
@@ -265,6 +276,7 @@
                   </table>
                 </td>
               </tr>
+
               <tr>
                 <td colspan="3" class="text-start ms-2"></td>
                 <td></td>

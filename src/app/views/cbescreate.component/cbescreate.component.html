@@ -149,11 +149,12 @@
               </ng-container>
             </tbody>
           </table>
+
           <div class="d-flex mt-3 mb-3">
             <button
               style="width: fit-content"
               (click)="onSave2Maturity()"
-              [routerLink]="['/CBEs/maturity/create']"
+              [routerLink]="['/CBEs/maturity/', CBEs.id]"
             >
               บันทึกและไปกำหนด Maturity
             </button>

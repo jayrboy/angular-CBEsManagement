@@ -18,6 +18,7 @@ export class CBEsService {
       .set('Authorization', `Bearer ${token}`); // Use Bearer token
     return this.httpClient.get<Response>(`${this.baseURL}`, { headers });
   }
+
   GetByID(id: number) {
     const token = localStorage.getItem('Token'); // Replace 'token' with your actual token key in LocalStorage
     const headers = new HttpHeaders()
@@ -25,6 +26,7 @@ export class CBEsService {
       .set('Authorization', `Bearer ${token}`); // Use Bearer token
     return this.httpClient.get<Response>(`${this.baseURL}/${id}`, { headers });
   }
+
   GetCBEsInBin() {
     const token = localStorage.getItem('Token'); // Replace 'token' with your actual token key in LocalStorage
     const headers = new HttpHeaders()
@@ -32,6 +34,7 @@ export class CBEsService {
       .set('Authorization', `Bearer ${token}`); // Use Bearer token
     return this.httpClient.get<Response>(`${this.baseURL}/bin`, { headers });
   }
+
   CancelDeleted(id: number) {
     const token = localStorage.getItem('Token'); // Replace 'token' with your actual token key in LocalStorage
     const headers = new HttpHeaders()
@@ -42,6 +45,7 @@ export class CBEsService {
       { headers }
     );
   }
+
   Delete(id: number) {
     const token = localStorage.getItem('Token'); // Replace 'token' with your actual token key in LocalStorage
     const headers = new HttpHeaders()
@@ -51,6 +55,7 @@ export class CBEsService {
       headers,
     });
   }
+
   LastDelete(id: number) {
     const token = localStorage.getItem('Token'); // Replace 'token' with your actual token key in LocalStorage
     const headers = new HttpHeaders()
@@ -61,6 +66,7 @@ export class CBEsService {
       { headers }
     );
   }
+
   GetHistory(id: number) {
     const token = localStorage.getItem('Token'); // Replace 'token' with your actual token key in LocalStorage
     const headers = new HttpHeaders()

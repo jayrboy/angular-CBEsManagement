@@ -51,6 +51,7 @@ export const routes: Routes = [
   { path: 'CBEs/create', component: CBEsCreateComponent },
   { path: 'CBEs/editer/:id', component: CBEsCreateComponent },
   { path: 'CBEs/maturity/create', component: CBEsMaturityCreateComponent },
+  { path: 'CBEs/maturity/:id', component: CBEsMaturityCreateComponent },
   { path: 'CBEs/supervisor/create', component: CBEsSupervisorCreateComponent },
   {
     path: 'CBEs/supervisor/editer/:id',

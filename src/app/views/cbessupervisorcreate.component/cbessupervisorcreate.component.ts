@@ -8,6 +8,7 @@ import CBEs from '../../models/CBEs';
 import Response from '../../models/response';
 import { LoadingComponent } from '../loading/loading.component';
 import CBEswithSupervisor from '../../models/CBEsWithSupervisor';
+
 @Component({
   selector: 'cbessupervisorcreate-page',
   standalone: true,
@@ -34,11 +35,6 @@ export class CBEsSupervisorCreateComponent {
   }
 
   ngOnInit(): void {
-    // กำหนดค่าเริ่มต้นให้กับ selectedSupervisor ใน ngOnInit หรือในส่วนต่างๆ ตามที่เหมาะสม
-    // if (this.CBEs.cbeswithSupervisors.length > 0) {
-    //   this.selectedSupervisor = this.CBEs.cbeswithSupervisors[0];
-    // }
-
     this.route.paramMap.subscribe((params) => {
       const idParam = params.get('id');
       this.id = idParam !== null ? +idParam : 0; // Convert string to number

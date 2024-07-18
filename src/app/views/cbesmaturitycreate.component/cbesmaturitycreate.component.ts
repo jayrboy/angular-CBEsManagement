@@ -1,8 +1,12 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import CBEs from '../../models/CBEs';
+import { CBEsService } from '../../services/CBEs.service';
+import Response from '../../models/response';
+
 @Component({
   selector: 'cbesmaturitycreate-page',
   standalone: true,
@@ -12,7 +16,35 @@ import { MatSidenavModule } from '@angular/material/sidenav';
   providers: [DatePipe],
 })
 export class CBEsMaturityCreateComponent {
-  constructor() {}
+  id: number | undefined = 0;
+  datafromapi = false;
+  CBEs = new CBEs();
+
+  constructor(
+    private route: ActivatedRoute,
+    private cbesService: CBEsService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe((params) => {
+      const idParam = params.get('id');
+      this.id = idParam !== null ? +idParam : 0; // Convert string to number
+      console.log('id receive : ', this.id);
+    });
+
+    if (this.id) {
+      this.cbesService.GetByID(this.id).subscribe((result: Response) => {
+        this.CBEs = result.data;
+
+        console.log('✉ DATA FETCH API :', this.CBEs);
+
+        this.datafromapi = true;
+      });
+    } else {
+      this.datafromapi = true;
+    }
+  }
 
   onSubmit() {
     console.log('login button work !');
