@@ -17,4 +17,28 @@ export class CBEsMaturityCreateComponent {
   onSubmit() {
     console.log('login button work !');
   }
+
+  addSupervisor(): void {
+    console.log('Added supervisor');
+  }
+
+  deletedSupervisor() {
+    console.log('Deleted supervisor');
+  }
+
+  addSubSupervisor(): void {
+    console.log('Added sub supervisor');
+  }
+
+  deletedSubSupervisor() {
+    console.log('Deleted sub supervisor');
+  }
+
+  addSupervisorWithMaturity(): void {
+    console.log('Added supervisor with Maturity');
+  }
+
+  deletedSupervisorWithMaturity() {
+    console.log('Deleted supervisor');
+  }
 }
