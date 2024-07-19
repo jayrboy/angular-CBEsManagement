@@ -25,22 +25,22 @@ export class LoginComponent {
     private router: Router
   ) {}
 
-  onsubCheck(){
-    this.onsub = !this.onsub
+  onsubCheck() {
+    this.onsub = !this.onsub;
   }
 
   onSubmit() {
     this.authService.Login(this.loginby).subscribe(
       (result) => {
-        console.log("Login Result :",result)
+        console.log('Login Result :', result);
         localStorage.setItem('Token', result.data.token);
         this.authService.Login(this.loginby);
         this.router.navigate(['CBEs/list']);
       },
       (error) => {
-        console.log(error)
-        alert(`${error.error.status} : ` + error.error.message)
-        this.seterr=true;
+        console.log(error);
+        alert(`${error.error.status} : ` + error.error.message);
+        this.seterr = true;
       }
     );
   }

@@ -1,5 +1,5 @@
 <nav
-  class="navbar navbar-expand-lg bg-body-tertiary fixed-top border-5 border-bottom border-primary"
+  class="navbar navbar-expand-md bg-body-tertiary fixed-top border-5 border-bottom border-primary"
 >
   <div class="container-fluid">
     <a class="navbar-brand" routerLink="">
@@ -131,6 +131,7 @@
 <br />
 <br />
 <br />
+<br />
 
 <!-- Authorization -->
 <button routerLink="nothavedata/2" routerLinkActive="active-button">
@@ -138,22 +139,6 @@
 </button>
 <button routerLink="login" routerLinkActive="active-button">login</button>
 <button routerLink="register" routerLinkActive="active-button">register</button>
-
-<button routerLink="CBEs/history/list/2" routerLinkActive="active-button">
-  ★ cbeshistorylist/2
-</button>
-
-<button routerLink="CBEs/history/2" routerLinkActive="active-button">
-  ★ cbeshistory/2
-</button>
-
-<button routerLink="CBEs/history/maturity/2" routerLinkActive="active-button">
-  ★ cbeshistory/maturity/2
-</button>
-
-<button routerLink="CBEs/history/supervisor/2" routerLinkActive="active-button">
-  ★ cbeshistory/supervisor/2
-</button>
 
 <!-- CBEs Target Result -->
 <button routerLink="CBEsTargetResult/list" routerLinkActive="active-button">
@@ -174,6 +159,7 @@
 >
   ♥ CBEsTargetResult/history/list
 </button>
+
 <button
   routerLink="CBEsTargetResult/targethistory/2"
   routerLinkActive="active-button"
@@ -248,4 +234,6 @@
   ✎ CBEsPlanning/report/draft/2
 </button>
 
-<router-outlet></router-outlet>
+<ng-container>
+  <router-outlet></router-outlet>
+</ng-container>

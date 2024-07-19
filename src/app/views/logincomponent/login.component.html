@@ -1,8 +1,51 @@
-<div class="container">
-  <form class="form" action="">
-      <p class="title">Login</p>
-      <input placeholder="Username" class="username input" type="text" [(ngModel)]="loginby.username" name="username">
-      <input placeholder="Password" class="password input" type="password" [(ngModel)]="loginby.password" name="password">
-      <button class="btn" type="submit" (click)="onSubmit()">Login</button>
-  </form>
+<div class="bg content">
+  <div
+    class="container vh-100 d-flex justify-content-center align-items-center"
+  >
+    <div class="col-md-4">
+      <div class="card shadow-lg border-0 rounded-lg">
+        <div class="card-header bg-light text-black text-center">
+          <img src="MRTA-2.png" alt="Logo" width="85" class="m-3" />
+          <h3 class="card-title">เข้าสู่ระบบ</h3>
+        </div>
+        <div class="card-body">
+          <form class="form">
+            <div class="form-group">
+              <input
+                placeholder="Username"
+                class="form-control"
+                type="text"
+                name="username"
+                [(ngModel)]="loginby.username"
+              />
+            </div>
+            &nbsp;
+            <div class="form-group">
+              <input
+                placeholder="Password"
+                class="form-control"
+                type="password"
+                name="password"
+                [(ngModel)]="loginby.password"
+              />
+            </div>
+            <div class="text-center">
+              <button
+                class="btn btn-primary btn-block mt-2"
+                type="submit"
+                (click)="onSubmit()"
+              >
+                Login
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="card-footer text-center">
+          <small class="text-muted"
+            >&copy; 2024 การรถไฟฟ้าขนส่งแห่งประเทศไทย</small
+          >
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
