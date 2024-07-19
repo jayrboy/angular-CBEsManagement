@@ -6,6 +6,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import CBEs from '../../models/CBEs';
 import { CBEsService } from '../../services/CBEs.service';
 import Response from '../../models/response';
+import CBEsLogHeader from '../../models/CBEsLogHeader';
 
 @Component({
   selector: 'cbesmaturitycreate-page',
@@ -19,6 +20,10 @@ export class CBEsMaturityCreateComponent {
   id: number | undefined = 0;
   datafromapi = false;
   CBEs = new CBEs();
+
+  cbesLogHeaders: CBEsLogHeader[] = [];
+  uniqueRounds: number[] = [];
+  maxRound: number = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -36,14 +41,30 @@ export class CBEsMaturityCreateComponent {
     if (this.id) {
       this.cbesService.GetByID(this.id).subscribe((result: Response) => {
         this.CBEs = result.data;
+        this.cbesLogHeaders = result.data.cbesLogHeaders;
 
         console.log('✉ DATA FETCH API :', this.CBEs);
 
+        // เรียก method สำหรับการกรองและเพิ่มรอบ
+        this.filterAndAddRounds();
         this.datafromapi = true;
       });
     } else {
       this.datafromapi = true;
     }
+  }
+
+  filterAndAddRounds(): void {
+    // กรองรอบที่ซ้ำกัน
+    this.uniqueRounds = Array.from(
+      new Set(this.cbesLogHeaders.map((log) => log.round))
+    );
+
+    // หาค่ารอบที่มากที่สุดในปัจจุบัน
+    this.maxRound = Math.max(...this.uniqueRounds);
+
+    // เพิ่มรอบถัดไป (maxRound + 1)
+    this.uniqueRounds.push(this.maxRound + 1);
   }
 
   onSubmit() {

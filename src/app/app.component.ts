@@ -40,9 +40,8 @@ import { CBEsPlanningReportDraft } from './views/cbesplanningreportdraft.compone
 import { NotHaveDataComponent } from './views/nothavedata.component/nothavedata.component';
 @Component({
   selector: 'app-root',
-  standalone:true,
+  standalone: true,
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
   imports: [
     NotHaveDataComponent,
     CBEsPlanningReportDraft,
@@ -88,10 +87,12 @@ import { NotHaveDataComponent } from './views/nothavedata.component/nothavedata.
 })
 export class AppComponent {
   title = 'CBEs Management Angular';
-  opennav = false
+  opennav = false;
   timeupdate = Date();
   timenow = new Date();
-  thailandTime: string = this.timenow.toLocaleString('en-US', { timeZone: 'Asia/Bangkok' });
+  thailandTime: string = this.timenow.toLocaleString('en-US', {
+    timeZone: 'Asia/Bangkok',
+  });
 
   constructor(private router: Router) {}
   // ngOnInit() {
@@ -102,5 +103,4 @@ export class AppComponent {
   //     console.log("COUNT")
   //   }, 1000);
   // }
-
 }

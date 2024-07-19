@@ -24,18 +24,14 @@
         />
 
         <label for="round">รอบการแก้ไข</label>
-        <select name="round" [(ngModel)]="selectedRound">
-          <option *ngFor="let round of roundOptions" [value]="round">
+        <select name="round">
+          <option *ngFor="let round of uniqueRounds" [value]="round">
             {{ round }}
           </option>
         </select>
 
         <label for="remark">หมายเหตุในการบันทึก</label>
-        <textarea
-          name="remark"
-          placeholder="หมายเหตุการแก้ไข"
-          [(ngModel)]="CBEs.detail"
-        ></textarea>
+        <textarea name="remark" placeholder="หมายเหตุการแก้ไข"></textarea>
         <small>*ต้องกรอกหมายเหตุก่อนแก้ไข</small>
 
         <div class="mt-3 border-3 border-dark border-top">

@@ -32,10 +32,11 @@
       <label for="round">รอบการแก้ไข</label>
 
       <select name="round">
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
+        <option *ngFor="let round of uniqueRounds" [value]="round">
+          {{ round }}
+        </option>
       </select>
+
       <label for="remark">หมายเหตุในการบันทึก</label>
       <textarea name="remark" placeholder="หมายเหตุการแก้ไข"></textarea>
       <small>*ต้องกรอกหมายเหตุก่อนแก้ไข</small>

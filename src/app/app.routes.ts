@@ -37,7 +37,7 @@ import { CBEsPlanningBinComponent } from './views/cbesplanningbin.component/cbes
 import { NotHaveDataComponent } from './views/nothavedata.component/nothavedata.component';
 
 export const routes: Routes = [
-  { path: 'home', component: HomeComponents },
+  { path: '', component: HomeComponents },
   { path: 'loading', component: LoadingComponent },
   { path: 'nothavedata/:id', component: NotHaveDataComponent },
   { path: 'login', component: LoginComponent },
@@ -104,7 +104,6 @@ export const routes: Routes = [
   { path: 'CBEsPlanning/bin/:id', component: CBEsPlanningBinComponent },
   { path: 'CBEsPlanning/report/:id', component: CBEsPlanningReport },
   { path: 'CBEsPlanning/report/draft/:id', component: CBEsPlanningReportDraft },
-
   { path: '**', pathMatch: 'full', component: NotfoundComponent },
 
   // {path'role/List',component:}

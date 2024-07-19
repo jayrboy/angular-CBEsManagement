@@ -8,6 +8,7 @@ import { CBEsService } from '../../services/CBEs.service';
 import CBEs from '../../models/CBEs';
 import Response from '../../models/response';
 import CBEsProcess from '../../models/CBEsProcess';
+import CBEsLogHeader from '../../models/CBEsLogHeader';
 
 @Component({
   selector: 'cbescreate-page',
@@ -21,18 +22,17 @@ export class CBEsCreateComponent implements OnInit {
   id: number | undefined = 0;
   datafromapi = false;
   CBEs = new CBEs();
+  cbesLogHerder: CBEsLogHeader[] = [];
 
-  roundOptions: number[]; // ตัวเลือกใน select
-  selectedRound: number; // ค่าเริ่มต้นที่เลือกใน select
+  cbesLogHeaders: CBEsLogHeader[] = [];
+  uniqueRounds: number[] = [];
+  maxRound: number = 0;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private cbesService: CBEsService
-  ) {
-    this.roundOptions = [1, 2, 3];
-    this.selectedRound = 1; // ค่าเริ่มต้นที่ต้องการให้แสดง
-  }
+  ) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -41,11 +41,15 @@ export class CBEsCreateComponent implements OnInit {
       console.log('CBEs ID :', this.id);
     });
 
-    if (this.id != 0 && this.id != undefined && this.id != null) {
+    if (this.id) {
       this.cbesService.GetByID(this.id).subscribe((result: Response) => {
         this.CBEs = result.data;
+        this.cbesLogHeaders = result.data.cbesLogHeaders;
+
         console.log('✉ DATA FATCH API :', this.CBEs);
 
+        // เรียก method สำหรับการกรองและเพิ่มรอบ
+        this.filterAndAddRounds();
         this.datafromapi = true;
       });
     } else {
@@ -60,6 +64,19 @@ export class CBEsCreateComponent implements OnInit {
         (pp) => pp.processHeader?.id === processes.id
       );
     }
+  }
+
+  filterAndAddRounds(): void {
+    // กรองรอบที่ซ้ำกัน
+    this.uniqueRounds = Array.from(
+      new Set(this.cbesLogHeaders.map((log) => log.round))
+    );
+
+    // หาค่ารอบที่มากที่สุดในปัจจุบัน
+    this.maxRound = Math.max(...this.uniqueRounds);
+
+    // เพิ่มรอบถัดไป (maxRound + 1)
+    this.uniqueRounds.push(this.maxRound + 1);
   }
 
   deleteProcess(process: CBEsProcess): void {
@@ -139,5 +156,6 @@ export class CBEsCreateComponent implements OnInit {
   onSubmit() {
     // Debug log to check the updated CBEs object
     console.log('Updated CBEs:', this.CBEs);
+    console.log('Updated CBEsLogHerder:', this.cbesLogHeaders);
   }
 }
