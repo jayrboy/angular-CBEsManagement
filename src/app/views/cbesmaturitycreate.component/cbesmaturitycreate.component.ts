@@ -33,20 +33,27 @@ export class CBEsMaturityCreateComponent {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
-      const idParam = params.get('id');
-      this.id = idParam !== null ? +idParam : 0; // Convert string to number
+      this.id = parseInt(params.get('id') ?? '0'); // Convert string to number
       console.log('id receive : ', this.id);
     });
 
-    if (this.id) {
+    if (this.id && this.id != 0) {
       this.cbesService.GetByID(this.id).subscribe((result: Response) => {
         this.CBEs = result.data;
         this.cbesLogHeaders = result.data.cbesLogHeaders;
 
         console.log('✉ DATA FETCH API :', this.CBEs);
 
-        // เรียก method สำหรับการกรองและเพิ่มรอบ
-        this.filterAndAddRounds();
+        // กรองรอบที่ซ้ำกัน
+        this.uniqueRounds = Array.from(
+          new Set(this.cbesLogHeaders.map((log) => log.round))
+        );
+        // หาค่ารอบที่มากที่สุดในปัจจุบัน
+        this.maxRound = Math.max(...this.uniqueRounds);
+
+        // เพิ่มรอบถัดไป (maxRound + 1)
+        this.uniqueRounds.push(this.maxRound + 1);
+
         this.datafromapi = true;
       });
     } else {

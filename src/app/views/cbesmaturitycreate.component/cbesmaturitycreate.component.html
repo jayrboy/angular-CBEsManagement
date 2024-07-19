@@ -38,7 +38,14 @@
       </select>
 
       <label for="remark">หมายเหตุในการบันทึก</label>
-      <textarea name="remark" placeholder="หมายเหตุการแก้ไข"></textarea>
+      <div *ngIf="cbesLogHeaders.length > 0">
+        <textarea
+          name="remark"
+          placeholder="หมายเหตุการแก้ไข"
+          [(ngModel)]="cbesLogHeaders[cbesLogHeaders.length - 1].remark"
+        >
+        </textarea>
+      </div>
       <small>*ต้องกรอกหมายเหตุก่อนแก้ไข</small>
 
       <div class="mt-3 border-3 border-dark border-top">
@@ -49,78 +56,113 @@
           </button>
         </div>
 
+        <!-- Table Processes -->
         <table>
           <thead>
             <tr>
               <th colspan="3">หลักเกณฑ์</th>
               <th>น้ำหนัก</th>
-              <th colspan="3">Maturity level</th>
+              <th>Maturity level</th>
             </tr>
           </thead>
 
           <tbody>
-            <tr>
-              <th colspan="3" class="text-start ms-4 level1">level1</th>
-              <th class="level 1">
-                <input
-                  class="level 1"
-                  type="number"
-                  placeholder="20"
-                  style="width: 75px; text-align: center"
-                  disabled
-                />
-              </th>
-            </tr>
+            <ng-container *ngFor="let process of CBEs.cbesProcesses">
+              <tr>
+                <td colspan="3" class="text-start ms-4 level1">
+                  {{ process.name }}
+                </td>
+                <td class="level1">
+                  <input
+                    class="level1"
+                    type="number"
+                    placeholder="20"
+                    style="width: 75px; text-align: center"
+                    [value]="process.weight"
+                    disabled
+                  />
+                </td>
+                <td class="level1"></td>
+              </tr>
 
-            <tr>
-              <th colspan="3" class="level2 text-start ms-2">level2</th>
-              <th class="level2">
-                <input
-                  type="number"
-                  placeholder="20"
-                  style="width: 75px; text-align: center"
-                  disabled
-                />
-              </th>
-              <th class="level2" colspan="3"></th>
-            </tr>
+              <ng-container *ngFor="let p of process.inverseProcessHeader">
+                <tr>
+                  <td class="level2" style="border-right: none"></td>
+                  <td
+                    colspan="2"
+                    class="level2 text-start ms-2"
+                    style="border-left: none"
+                  >
+                    {{ p.name }}
+                  </td>
+                  <td class="level2">
+                    <input
+                      type="number"
+                      placeholder="20"
+                      style="width: 75px; text-align: center"
+                      disabled
+                    />
+                  </td>
+                  <td class="level2"></td>
+                </tr>
 
-            <tr>
-              <th colspan="3" class="text-start ms-2">level3</th>
-              <th>
-                <input
-                  type="number"
-                  placeholder="20"
-                  style="width: 75px; text-align: center"
-                  disabled
-                />
-              </th>
-              <th colspan="3">ระดับ 1:<textarea></textarea></th>
-            </tr>
+                <ng-container *ngFor="let sp of p.inverseProcessHeader">
+                  <tr>
+                    <td rowspan="5" style="border-right: none"></td>
+                    <td
+                      rowspan="5"
+                      style="border-right: none; border-left: none"
+                    ></td>
 
-            <tr>
-              <th colspan="3" class="text-start ms-2"></th>
-              <th></th>
-              <th colspan="3">ระดับ 2:<textarea></textarea></th>
-            </tr>
+                    <td
+                      rowspan="5"
+                      style="border-left: none; vertical-align: top"
+                      class="text-start ms-2"
+                    >
+                      {{ sp.name }}
+                    </td>
 
-            <tr>
-              <th colspan="3" class="text-start ms-2"></th>
-              <th></th>
-              <th colspan="3">ระดับ 3:<textarea></textarea></th>
-            </tr>
+                    <td>
+                      <input
+                        type="number"
+                        placeholder="20"
+                        style="width: 75px; text-align: center"
+                        disabled
+                        [value]="sp.weight"
+                      />
+                    </td>
 
-            <tr>
-              <th colspan="3" class="text-start ms-2"></th>
-              <th></th>
-              <th colspan="3">ระดับ 4:<textarea></textarea></th>
-            </tr>
+                    <td>
+                      ระดับ 1:
+                      <textarea
+                        *ngIf="sp.cbesMaturities.length > 0"
+                        name="maturity"
+                        [(ngModel)]="sp.cbesMaturities[0].detail"
+                        style="width: 100%; height: 50px; resize: none"
+                        [readonly]="true"
+                      ></textarea>
+                    </td>
+                  </tr>
 
-            <tr>
-              <th colspan="3" class="text-start ms-2"></th>
-              <th></th>
-              <th colspan="3">ระดับ 5:<textarea></textarea></th>
-            </tr>
+                  <ng-container
+                    *ngFor="let m of sp.cbesMaturities; let idx = index"
+                  >
+                    <tr *ngIf="idx > 0">
+                      <td></td>
+                      <td>
+                        ระดับ {{ idx + 1 }}:
+                        <textarea
+                          name="maturity"
+                          [(ngModel)]="sp.cbesMaturities[idx].detail"
+                          style="width: 100%; height: 50px; resize: none"
+                          [readonly]="true"
+                        ></textarea>
+                      </td>
+                    </tr>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+            </ng-container>
           </tbody>
         </table>
       </div>
