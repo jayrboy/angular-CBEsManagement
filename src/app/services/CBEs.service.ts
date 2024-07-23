@@ -6,7 +6,7 @@ import Response from '../models/response';
   providedIn: 'root',
 })
 export class CBEsService {
-  private readonly baseURL = 'http://192.168.1.11:8000/api/CBEs';
+  private readonly baseURL = 'http://192.168.1.8:8000/api/CBEs';
 
   constructor(private httpClient: HttpClient) {}
   public SelecetOption = '';

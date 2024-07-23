@@ -18,7 +18,7 @@ import { LoadingComponent } from '../loading/loading.component';
 })
 export class RoleBinListComponent {
   Allroles: CBEsRole[] = [];
-  datafromapi = false;
+  isLoading = false;
   constructor(
     private roleService: CBEsRoleService,
     private dateformatService: DateFormatService
@@ -26,30 +26,28 @@ export class RoleBinListComponent {
 
   ngOnInit(): void {
     this.roleService.GetAllBin().subscribe((result: Response) => {
-      this.Allroles = result.data
-        .map((data: any) => {
-          return {
-            ...data,
-            updateDate: this.dateformatService.convertDateFormat(data.updateDate)
-          };
-        });
-      this.datafromapi = true;
+      this.Allroles = result.data.map((data: any) => {
+        return {
+          ...data,
+          updateDate: this.dateformatService.convertDateFormat(data.updateDate),
+        };
+      });
+
+      this.isLoading = true;
       console.log('this ALL DATA', result);
     });
   }
 
-  onCancelDelete(id : number){
-    this.roleService.CancelDelete(id).subscribe((result:Response) => {
-      alert(result.message)
-      location.reload()
-    })
+  onCancelDelete(id: number) {
+    this.roleService.CancelDelete(id).subscribe((result: Response) => {
+      alert(result.message);
+      location.reload();
+    });
   }
-  onLastDelete( id : number){
-    this.roleService.LastDelete(id).subscribe((result:Response) => {
-      alert(result.message)
-      location.reload()
-    })
+  onLastDelete(id: number) {
+    this.roleService.LastDelete(id).subscribe((result: Response) => {
+      alert(result.message);
+      location.reload();
+    });
   }
-
-
 }

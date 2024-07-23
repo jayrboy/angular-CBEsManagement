@@ -9,7 +9,7 @@ import CBEsUserWithRole from '../models/CBEsUserWithRole';
   providedIn: 'root',
 })
 export class CBEsRoleService {
-  private readonly baseURL = 'http://192.168.1.11:8000/api/CBEsRole';
+  private readonly baseURL = 'http://192.168.1.8:8000/api/CBEsRole';
 
   constructor(private httpClient: HttpClient) {}
   public SelecetOption = '';

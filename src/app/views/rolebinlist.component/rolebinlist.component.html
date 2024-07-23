@@ -1,9 +1,9 @@
-<div *ngIf="datafromapi == true; else LoadSuccess">
+<div *ngIf="isLoading == true; else LoadSuccess">
   <div *ngIf="Allroles.length == 0; else HaveData">
     <div class="container">
       <div>
         <h2>กล่องขยะ</h2>
-        </div>
+      </div>
       <table>
         <thead>
           <tr>
@@ -29,7 +29,7 @@
 <ng-template #HaveData>
   <div class="container">
     <div>
-    <h2>กล่องขยะ</h2>
+      <h2>กล่องขยะ</h2>
     </div>
     <table class="table mt-3 border border-dark border-2 text-center">
       <thead>
@@ -44,8 +44,18 @@
           <td>{{ data.updateDate }}</td>
           <td>{{ data.name }}</td>
           <td>
-            <button class="btn btn-sm btn-warning ms-3" (click)="onCancelDelete(data.id)">ยกเลิก</button>
-            <button class="btn btn-sm btn-danger ms-3" (click)="onLastDelete(data.id)">ลบ</button>
+            <button
+              class="btn btn-sm btn-warning ms-3"
+              (click)="onCancelDelete(data.id)"
+            >
+              ยกเลิก
+            </button>
+            <button
+              class="btn btn-sm btn-danger ms-3"
+              (click)="onLastDelete(data.id)"
+            >
+              ลบ
+            </button>
           </td>
         </tr>
       </tbody>
