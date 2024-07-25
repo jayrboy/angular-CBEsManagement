@@ -8,17 +8,17 @@ import CBEsWithSubSupervisor from './CBEsWithSubSupervisor';
 import CBEswithSupervisor from './CBEsWithSupervisor';
 
 export default class CBEs {
-  id = 0;
-  thaiName = 'ชื่อภาษาไทย';
-  engName = 'ชื่อภาษาอังกฤษ';
-  shortName = 'ตัวย่อโครงการ';
-  detail = 'รายละเอียด';
-  isActive = true;
-  createDate = new Date();
-  updateDate = new Date();
-  isDeleted = false;
-  isLastDelete = false;
-  createBy = 0;
+  id: number = 0;
+  thaiName: string = '';
+  engName: string = '';
+  shortName: string = '';
+  detail: string = '';
+  isActive: boolean = true;
+  createDate: Date = new Date();
+  updateDate: Date = new Date();
+  isDeleted: boolean = false;
+  isLastDelete: boolean = false;
+  createBy: number = 0;
   cbesPlanningLogs: CBEsPlanningLog[] = [];
   cbesPlanning: CBEsPlanning[] = [];
   cbesProcesses: CBEsProcess[] = [];

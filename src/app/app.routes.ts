@@ -1,13 +1,17 @@
 import { Routes } from '@angular/router';
 import { HomeComponents } from './views/homecomponent/homecomponent.component';
 import { LoadingComponent } from './views/loading/loading.component';
+import { NotfoundComponent } from './views/notfound/notfound.component';
+import { NotHaveDataComponent } from './views/nothavedata.component/nothavedata.component';
+
 import { LoginComponent } from './views/logincomponent/login.component';
 import { RegisterComponent } from './views/registercomponent/register.component';
-import { NotfoundComponent } from './views/notfound/notfound.component';
+
 import { RoleListComponent } from './views/rolelistcomponent/rolelist.component';
 import { RoleCreateComponent } from './views/rolecreatecomponent/rolecreate.component';
 import { RoleUserComponent } from './views/roleuser.component/roleuser.component';
 import { RoleBinListComponent } from './views/rolebinlist.component/rolebinlist.component';
+
 import { CBEsListComponent } from './views/cbeslist.component/cbeslist.component';
 import { CBEsCreateComponent } from './views/cbescreate.component/cbescreate.component';
 import { CBEsMaturityCreateComponent } from './views/cbesmaturitycreate.component/cbesmaturitycreate.component';
@@ -17,11 +21,13 @@ import { CBEsHistoryComponent } from './views/cbeshistory.component/cbeshistory.
 import { CBEsMaturityHistoryComponent } from './views/cbesmaturityhistory.component/cbesmaturityhistory.component';
 import { CBEsSupervisorHistoryComponent } from './views/cbessupervisorhistory.component/cbessupervisorhistory.component';
 import { CBEsBinListComponent } from './views/cbesbin.component/cbesbin.component';
+
 import { CBEsTargetResultListComponent } from './views/cbestargetresultlist.component/cbestargetresultlist.component';
 import { CBEsTargetCreateComponent } from './views/cbestargetcreate.component/cbestargetcreate.component';
 import { CBEsResultCreateComponent } from './views/cbesresultcreate.component/cbesresultcreate.component';
 import { CBEsTargetResultHistoryListComponent } from './views/cbestargetresulthistorylist.component/cbestargetresulthistorylist.component';
 import { CBEsTargetHistoryByID } from './views/cbestargethistory.component/cbestargethistory.component';
+
 import { CBEsManagePlanning } from './views/cbesmanageplanning.component/cbesmanageplanning.component';
 import { CBEsPlanningList } from './views/cbesplanninglist.component/cbesplanninglist.component';
 import { CBEsPlanningCreate } from './views/cbesplanningcreate.component/cbesplanningcreate.component';
@@ -34,7 +40,6 @@ import { CBEsPlanningResultHistory } from './views/cbesplanningresulthistory.com
 import { CBEsPlanningReport } from './views/cbesplanningreport.component/cbesplanningreport.component';
 import { CBEsPlanningReportDraft } from './views/cbesplanningreportdraft.component/cbesplanningreportdraft.component';
 import { CBEsPlanningBinComponent } from './views/cbesplanningbin.component/cbesplanningbin.component';
-import { NotHaveDataComponent } from './views/nothavedata.component/nothavedata.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponents },

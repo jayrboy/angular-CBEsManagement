@@ -1,37 +1,58 @@
-<ng-container *ngIf="datafromapi == true; else loadingsuccess">
+<ng-container *ngIf="isLoading; else loadingTemplate">
   <div class="card d-flex">
     <section class="section_form">
       <form id="consultation-form" class="feed-form" action="#">
         <h1 class="border-3 border-dark border-bottom">จัดการหลักเกณฑ์ CBEs</h1>
 
+        <!-- Thai Name Input -->
         <label for="thainame">ชื่อภาษาไทย</label>
         <input
+          id="thainame"
           name="thainame"
           type="text"
           [(ngModel)]="CBEs.thaiName"
           required
+          placeholder="กรอกชื่อภาษาไทย"
         />
 
+        <!-- English Name Input -->
         <label for="engname">ชื่อภาษาอังกฤษ</label>
-        <input name="engname" type="text" [(ngModel)]="CBEs.engName" required />
+        <input
+          id="engname"
+          name="engname"
+          type="text"
+          [(ngModel)]="CBEs.engName"
+          required
+          placeholder="กรอกชื่อภาษาอังกฤษ"
+        />
 
+        <!-- Short Name Input -->
         <label for="shortname">ตัวย่อ</label>
         <input
+          id="shortname"
           name="shortname"
           type="text"
           [(ngModel)]="CBEs.shortName"
           required
+          placeholder="กรอกตัวย่อ"
         />
 
+        <!-- Round Selection -->
         <label for="round">รอบการแก้ไข</label>
-        <select name="round">
-          <option *ngFor="let round of uniqueRounds" [value]="round">
+        <select id="round" name="round" [(ngModel)]="currentRound">
+          <option *ngFor="let round of rounds" [value]="round">
             {{ round }}
           </option>
         </select>
 
+        <!-- Remark Textarea -->
         <label for="remark">หมายเหตุในการบันทึก</label>
-        <textarea name="remark" placeholder="หมายเหตุการแก้ไข"></textarea>
+        <textarea
+          id="remark"
+          name="remark"
+          [(ngModel)]="remark"
+          placeholder="หมายเหตุการแก้ไข"
+        ></textarea>
         <small>*ต้องกรอกหมายเหตุก่อนแก้ไข</small>
 
         <div class="mt-3 border-3 border-dark border-top">
@@ -52,18 +73,16 @@
                 <th>จัดการ</th>
               </tr>
             </thead>
-
             <tbody>
               <!-- Level 1 -->
               <ng-container *ngFor="let process of CBEs.cbesProcesses">
-                <tr *ngIf="process.isDeleted != true">
+                <tr *ngIf="!process.isDeleted">
                   <td>
                     <textarea
                       placeholder="level 1"
                       matInput
                       [(ngModel)]="process.name"
                       name="processName"
-                      #name="ngModel"
                       [ngModelOptions]="{ standalone: true }"
                     ></textarea>
                   </td>
@@ -73,11 +92,11 @@
                     <input
                       type="number"
                       style="width: 75px; text-align: center"
-                      [value]="process.weight"
+                      placeholder="น้ำหนัก"
+                      [(ngModel)]="process.weight"
+                      [ngModelOptions]="{ standalone: true }"
                     />
                   </td>
-
-                  <!-- Column for buttons -->
                   <td>
                     <button (click)="deleteProcess(process)">ลบ</button>
                     <button (click)="addChildProcess(process)">
@@ -88,7 +107,7 @@
 
                 <!-- Level 2 -->
                 <ng-container *ngFor="let p of process.inverseProcessHeader">
-                  <tr *ngIf="p.isDeleted != true">
+                  <tr *ngIf="!p.isDeleted">
                     <td></td>
                     <td>
                       <textarea
@@ -96,7 +115,6 @@
                         matInput
                         [(ngModel)]="p.name"
                         name="subName"
-                        #name="ngModel"
                         [ngModelOptions]="{ standalone: true }"
                       ></textarea>
                     </td>
@@ -105,7 +123,9 @@
                       <input
                         type="number"
                         style="width: 75px; text-align: center"
-                        [value]="p.weight"
+                        placeholder="น้ำหนัก"
+                        [(ngModel)]="p.weight"
+                        [ngModelOptions]="{ standalone: true }"
                       />
                     </td>
                     <td>
@@ -116,16 +136,15 @@
 
                   <!-- Level 3 -->
                   <ng-container *ngFor="let sp of p.inverseProcessHeader">
-                    <tr *ngIf="sp.isDeleted != true">
+                    <tr *ngIf="!sp.isDeleted">
                       <td></td>
                       <td></td>
                       <td>
                         <textarea
-                          placeholder="level 2"
+                          placeholder="level 3"
                           matInput
                           [(ngModel)]="sp.name"
                           name="subProcessName"
-                          #name="ngModel"
                           [ngModelOptions]="{ standalone: true }"
                         ></textarea>
                       </td>
@@ -133,7 +152,9 @@
                         <input
                           type="number"
                           style="width: 75px; text-align: center"
-                          [value]="sp.weight"
+                          placeholder="น้ำหนัก"
+                          [(ngModel)]="sp.weight"
+                          [ngModelOptions]="{ standalone: true }"
                         />
                       </td>
                       <td>
@@ -162,6 +183,6 @@
   </div>
 </ng-container>
 
-<ng-template #loadingsuccess>
+<ng-template #loadingTemplate>
   <loading-page />
 </ng-template>

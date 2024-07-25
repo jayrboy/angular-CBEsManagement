@@ -20,13 +20,16 @@ import CBEsLogHeader from '../../models/CBEsLogHeader';
 })
 export class CBEsCreateComponent implements OnInit {
   id: number | undefined = 0;
-  datafromapi = false;
-  CBEs = new CBEs();
-  cbesLogHerder: CBEsLogHeader[] = [];
+  isLoading = false;
+  CBEs: CBEs = new CBEs();
 
-  cbesLogHeaders: CBEsLogHeader[] = [];
-  uniqueRounds: number[] = [];
-  maxRound: number = 0;
+  CBEsLogHeaders: CBEsLogHeader[] = [];
+  remark: string = ''; // Initialize remark with an empty string
+
+  // รอบการแก้ไข
+  rounds: number[] = [];
+  currentRound: number = 1;
+  selectedRound: number = 1;
 
   constructor(
     private router: Router,
@@ -38,45 +41,58 @@ export class CBEsCreateComponent implements OnInit {
     this.route.paramMap.subscribe((params) => {
       const idParam = params.get('id');
       this.id = idParam !== null ? +idParam : 0; // Convert string to number
-      console.log('CBEs ID :', this.id);
+
+      if (this.id) {
+        // CBEs/editer/:id (แก้ไขข้อมูล CBE)
+        this.loadCBEData(this.id);
+      } else {
+        this.isLoading = true;
+        this.rounds = [1]; // Default rounds for new data
+        this.currentRound = 1; // Default rounds for new data
+        console.log('Creating new CBE:', this.CBEs);
+      }
     });
+  }
 
-    if (this.id) {
-      this.cbesService.GetByID(this.id).subscribe((result: Response) => {
-        this.CBEs = result.data;
-        this.cbesLogHeaders = result.data.cbesLogHeaders;
+  loadCBEData(id: number): void {
+    this.isLoading = false;
 
-        console.log('✉ DATA FATCH API :', this.CBEs);
+    this.cbesService.GetByID(id).subscribe((result: Response) => {
+      this.CBEs = result.data;
+      this.CBEsLogHeaders = result.data.cbesLogHeaders;
+      this.isLoading = true;
 
-        // เรียก method สำหรับการกรองและเพิ่มรอบ
-        this.filterAndAddRounds();
-        this.datafromapi = true;
-      });
-    } else {
-      this.datafromapi = true;
-    }
+      // Set the remark to the first header's remark or an empty string
+      this.remark =
+        this.CBEsLogHeaders.length > 0 ? this.CBEsLogHeaders[0].remark : '';
+      console.log('✉ Fetch API for Update CBE:', this.CBEs);
 
-    // Filter the processes where the processHeader's id matches the current process id (p.id)
+      this.filterAndAddRounds();
+
+      // Handle the processes after data is loaded
+      this.processCBEsData();
+    });
+  }
+
+  filterAndAddRounds(): void {
+    this.currentRound = this.CBEsLogHeaders[0].round;
+    console.log('Current Round:', this.currentRound);
+
+    // Generate an array of rounds from 1 to currentRound + 1
+    this.rounds = Array.from(
+      { length: this.currentRound + 1 },
+      (_, i) => i + 1
+    );
+  }
+
+  processCBEsData(): void {
     const processes = this.CBEs.cbesProcesses[0];
 
-    if (processes && processes.isDeleted != true) {
+    if (processes && !processes.isDeleted) {
       processes.inverseProcessHeader = this.CBEs.cbesProcesses.filter(
         (pp) => pp.processHeader?.id === processes.id
       );
     }
-  }
-
-  filterAndAddRounds(): void {
-    // กรองรอบที่ซ้ำกัน
-    this.uniqueRounds = Array.from(
-      new Set(this.cbesLogHeaders.map((log) => log.round))
-    );
-
-    // หาค่ารอบที่มากที่สุดในปัจจุบัน
-    this.maxRound = Math.max(...this.uniqueRounds);
-
-    // เพิ่มรอบถัดไป (maxRound + 1)
-    this.uniqueRounds.push(this.maxRound + 1);
   }
 
   deleteProcess(process: CBEsProcess): void {
@@ -156,6 +172,5 @@ export class CBEsCreateComponent implements OnInit {
   onSubmit() {
     // Debug log to check the updated CBEs object
     console.log('Updated CBEs:', this.CBEs);
-    console.log('Updated CBEsLogHerder:', this.cbesLogHeaders);
   }
 }
