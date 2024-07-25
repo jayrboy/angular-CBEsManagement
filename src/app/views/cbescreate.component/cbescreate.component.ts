@@ -171,6 +171,16 @@ export class CBEsCreateComponent implements OnInit {
 
   onSubmit() {
     // Debug log to check the updated CBEs object
-    console.log('Updated CBEs:', this.CBEs);
+    console.log('Created CBEs:', this.CBEs);
+
+    if (this.CBEsLogHeaders.length == 0) {
+      this.cbesService.post(this.CBEs).subscribe((result: Response) => {
+        alert(result.message);
+        this.router.navigate(['/CBEs/create']);
+      });
+    } else {
+      console.log('Updated CBEs:', this.CBEs);
+      this.router.navigate(['/CBEs/', this.CBEs.id]);
+    }
   }
 }
