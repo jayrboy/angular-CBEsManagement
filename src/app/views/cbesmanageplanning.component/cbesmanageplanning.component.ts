@@ -28,7 +28,7 @@ export class CBEsManagePlanning implements OnInit{
     console.log("ไปดูแพลนนิ่งทั้งหมดในโครงการรหัส",id)
   }
   ngOnInit(): void {
-    this.cbesService.GetAll
+    this.cbesService.getAll
   }
 
 

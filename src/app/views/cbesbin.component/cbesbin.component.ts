@@ -29,7 +29,7 @@ export class CBEsBinListComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("CBEs Bin Component")
-    this.cbesService.GetCBEsInBin().subscribe((result : Response) => {
+    this.cbesService.getCBEsInBin().subscribe((result : Response) => {
       this.AllCBEs = result.data.map((data: any) => {
         return {
           ...data,
@@ -57,7 +57,7 @@ export class CBEsBinListComponent implements OnInit {
 
   onLastDeleted(id : number){
     console.log("id to LastDeleted = > " ,id)
-    this.cbesService.LastDelete(id).subscribe((result:Response) => {
+    this.cbesService.lastDelete(id).subscribe((result:Response) => {
       alert(result.data)
       window.location.reload();
     })
@@ -65,7 +65,7 @@ export class CBEsBinListComponent implements OnInit {
 
   onCancelDeleted(id : number){
     console.log("id to CancelDeleted = > " ,id)
-    this.cbesService.CancelDeleted(id).subscribe((result:Response) => {
+    this.cbesService.cancelDeleted(id).subscribe((result:Response) => {
       alert(result.data)
       window.location.reload();
     })

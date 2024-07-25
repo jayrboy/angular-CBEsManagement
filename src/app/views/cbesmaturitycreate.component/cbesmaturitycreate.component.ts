@@ -38,7 +38,7 @@ export class CBEsMaturityCreateComponent {
     });
 
     if (this.id && this.id != 0) {
-      this.cbesService.GetByID(this.id).subscribe((result: Response) => {
+      this.cbesService.getById(this.id).subscribe((result: Response) => {
         this.CBEs = result.data;
         this.cbesLogHeaders = result.data.cbesLogHeaders;
 

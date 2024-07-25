@@ -57,7 +57,7 @@ export class CBEsCreateComponent implements OnInit {
   loadCBEData(id: number): void {
     this.isLoading = false;
 
-    this.cbesService.GetByID(id).subscribe((result: Response) => {
+    this.cbesService.getById(id).subscribe((result: Response) => {
       this.CBEs = result.data;
       this.CBEsLogHeaders = result.data.cbesLogHeaders;
       this.isLoading = true;

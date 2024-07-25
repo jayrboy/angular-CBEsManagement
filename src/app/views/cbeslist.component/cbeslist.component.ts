@@ -30,7 +30,7 @@ export class CBEsListComponent {
   ) {}
 
   ngOnInit(): void {
-    this.cbesService.GetAll().subscribe((result: Response) => {
+    this.cbesService.getAll().subscribe((result: Response) => {
       this.AllCBEs = result.data.map((data: any) => {
         return {
           ...data,
@@ -74,7 +74,7 @@ export class CBEsListComponent {
 
   onDelete(id: number) {
     console.log('delete id =>', id);
-    this.cbesService.Delete(id).subscribe((result: Response) => {
+    this.cbesService.delete(id).subscribe((result: Response) => {
       try {
         alert(`${result.message}`);
         window.location.reload();

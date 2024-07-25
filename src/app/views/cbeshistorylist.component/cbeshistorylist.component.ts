@@ -34,7 +34,7 @@ export class CBEsHistoryListComponent {
       console.log('id receive : ', this.id);
     });
     if(this.id != 0 && this.id != undefined && this.id != null){
-      this.cbesService.GetHistory(this.id).subscribe((result:Response)=>{
+      this.cbesService.getHistory(this.id).subscribe((result:Response)=>{
         this.LogHeader = result.data.map((data: any) => {
           return {
             ...data,

@@ -11,7 +11,7 @@ export class CBEsService {
   constructor(private httpClient: HttpClient) {}
   public SelecetOption = '';
 
-  GetAll() {
+  getAll() {
     const token = localStorage.getItem('Token'); // Replace 'token' with your actual token key in LocalStorage
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
@@ -19,7 +19,7 @@ export class CBEsService {
     return this.httpClient.get<Response>(`${this.baseURL}`, { headers });
   }
 
-  GetByID(id: number) {
+  getById(id: number) {
     const token = localStorage.getItem('Token'); // Replace 'token' with your actual token key in LocalStorage
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
@@ -27,7 +27,7 @@ export class CBEsService {
     return this.httpClient.get<Response>(`${this.baseURL}/${id}`, { headers });
   }
 
-  GetCBEsInBin() {
+  getCBEsInBin() {
     const token = localStorage.getItem('Token'); // Replace 'token' with your actual token key in LocalStorage
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
@@ -35,7 +35,7 @@ export class CBEsService {
     return this.httpClient.get<Response>(`${this.baseURL}/bin`, { headers });
   }
 
-  CancelDeleted(id: number) {
+  cancelDeleted(id: number) {
     const token = localStorage.getItem('Token'); // Replace 'token' with your actual token key in LocalStorage
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
@@ -46,7 +46,7 @@ export class CBEsService {
     );
   }
 
-  Delete(id: number) {
+  delete(id: number) {
     const token = localStorage.getItem('Token'); // Replace 'token' with your actual token key in LocalStorage
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
@@ -56,7 +56,7 @@ export class CBEsService {
     });
   }
 
-  LastDelete(id: number) {
+  lastDelete(id: number) {
     const token = localStorage.getItem('Token'); // Replace 'token' with your actual token key in LocalStorage
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
@@ -67,7 +67,7 @@ export class CBEsService {
     );
   }
 
-  GetHistory(id: number) {
+  getHistory(id: number) {
     const token = localStorage.getItem('Token'); // Replace 'token' with your actual token key in LocalStorage
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')

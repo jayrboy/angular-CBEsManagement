@@ -42,7 +42,7 @@ export class CBEsSupervisorCreateComponent {
     });
 
     if (this.id != 0 && this.id != undefined && this.id != null) {
-      this.cbesService.GetByID(this.id).subscribe((result: Response) => {
+      this.cbesService.getById(this.id).subscribe((result: Response) => {
         this.CBEs = result.data;
         console.log('✉ DATA FATCH API :', this.CBEs);
         this.datafromapi = true;
