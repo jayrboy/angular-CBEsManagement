@@ -8,13 +8,13 @@ import CBEsMaturities from './MaturityWithSupervisor';
 
 export default class CBEsProcess {
   id: number = 0;
-  name: string = '';
-  weight: number = 0;
-  createDate: Date = new Date();
-  updateDate: Date = new Date();
-  isDeleted: boolean = false;
-  processHeaderId: number | null = null;
-  cbesId: number = 0;
+  name?: string = '';
+  weight?: number = 0;
+  createDate?: Date = new Date();
+  updateDate?: Date = new Date();
+  isDeleted?: boolean = false;
+  processHeaderId?: number | null = null;
+  cbesId?: number = 0;
   cbesMaturities: CBEsMaturities[] = []; // Assuming this is an array of some type
   processHeader: CBEsProcess | null = null; // Reference to parent process
   inverseProcessHeader: CBEsProcess[] = []; // Array of child processes

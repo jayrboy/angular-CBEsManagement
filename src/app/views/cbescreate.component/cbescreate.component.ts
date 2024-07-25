@@ -9,6 +9,8 @@ import CBEs from '../../models/CBEs';
 import Response from '../../models/response';
 import CBEsProcess from '../../models/CBEsProcess';
 import CBEsLogHeader from '../../models/CBEsLogHeader';
+import CBEsUsers from '../../models/CBEsUser';
+import CBEsLogType from '../../models/CBEsLogType';
 
 @Component({
   selector: 'cbescreate-page',
@@ -49,7 +51,7 @@ export class CBEsCreateComponent implements OnInit {
         this.isLoading = true;
         this.rounds = [1]; // Default rounds for new data
         this.currentRound = 1; // Default rounds for new data
-        console.log('Creating new CBE:', this.CBEs);
+        console.log('CBEs :', this.CBEs);
       }
     });
   }
@@ -154,13 +156,8 @@ export class CBEsCreateComponent implements OnInit {
       cbesProcessResults: [],
       cbesProcessTargets: [],
       inverseProcessHeader: [],
-      processHeader: parentProcess, // Reference to parent process
+      processHeader: null,
     };
-
-    // Add the newSubProcess to the inverseProcessHeader of the parent process
-    if (!parentProcess.inverseProcessHeader) {
-      parentProcess.inverseProcessHeader = [];
-    }
 
     parentProcess.inverseProcessHeader.push(newSubProcess);
   }
@@ -170,17 +167,16 @@ export class CBEsCreateComponent implements OnInit {
   }
 
   onSubmit() {
-    // Debug log to check the updated CBEs object
-    console.log('Created CBEs:', this.CBEs);
+    if (this.CBEsLogHeaders.length === 0) {
+      console.log('Created CBEs:', this.CBEs);
 
-    if (this.CBEsLogHeaders.length == 0) {
       this.cbesService.post(this.CBEs).subscribe((result: Response) => {
         alert(result.message);
-        this.router.navigate(['/CBEs/create']);
       });
+
     } else {
       console.log('Updated CBEs:', this.CBEs);
-      this.router.navigate(['/CBEs/', this.CBEs.id]);
+      this.router.navigate(['/CBEs/editor/', this.CBEs.id]);
     }
   }
 }

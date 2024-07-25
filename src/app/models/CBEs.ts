@@ -1,4 +1,5 @@
 import CBEsLog from './CBEsLog';
+import CBEsLogHeader from './CBEsLogHeader';
 import CBEsPlanning from './CBEsPlanning';
 import CBEsPlanningLog from './CBEsPlanningLog';
 import CBEsProcess from './CBEsProcess';
@@ -19,11 +20,12 @@ export default class CBEs {
   isDeleted: boolean = false;
   isLastDelete: boolean = false;
   createBy: number = 0;
+  cbesLogHeaders: CBEsLogHeader[] = [];
   cbesPlanningLogs: CBEsPlanningLog[] = [];
   cbesPlanning: CBEsPlanning[] = [];
   cbesProcesses: CBEsProcess[] = [];
   cbesTargetResultLogHeaders: CBEsTargetResultLogHeader[] = [];
   cbesWithSubSupervisors: CBEsWithSubSupervisor[] = [];
   cbeswithSupervisors: CBEswithSupervisor[] = [];
-  createByNavigation: CBEsUser[] | null = [];
+  createByNavigation: CBEsUser = new CBEsUser();
 }

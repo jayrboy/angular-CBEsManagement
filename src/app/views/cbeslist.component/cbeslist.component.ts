@@ -49,10 +49,10 @@ export class CBEsListComponent {
   onEdit(editData: string, id: number) {
     console.log('edit id =>', id);
     if (editData == 'cbes') {
-      this.router.navigate(['/CBEs/editer/', id]);
+      this.router.navigate(['/CBEs/editor/', id]);
     }
     if (editData == 'responsible') {
-      this.router.navigate(['CBEs/supervisor/editer/', id]);
+      this.router.navigate(['CBEs/supervisor/editor/', id]);
     }
   }
 
