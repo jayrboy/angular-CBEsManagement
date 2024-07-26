@@ -163,7 +163,22 @@ export class CBEsCreateComponent implements OnInit {
   }
 
   onSave2Maturity() {
-    console.log('save and navigate to maturities');
+    if (this.CBEsLogHeaders?.length === 0) {
+      this.cbesService.post(this.cbe).subscribe((result: Response) => {
+        alert(result.message);
+      });
+
+      console.log('Created CBE and Maturity :', this.cbe);
+    } else {
+      this.cbe.cbesLogHeaders[0].round = this.currentRound;
+
+      this.cbesService.put(this.cbe).subscribe((result: Response) => {
+        alert(result.message);
+        this.router.navigate(['/CBEs/maturity/', this.cbe.id]);
+      });
+
+      console.log('Updated CBE and Maturity :', this.cbe);
+    }
   }
 
   onSubmit() {

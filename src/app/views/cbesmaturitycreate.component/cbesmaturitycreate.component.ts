@@ -18,12 +18,16 @@ import CBEsLogHeader from '../../models/CBEsLogHeader';
 })
 export class CBEsMaturityCreateComponent {
   id: number | undefined = 0;
-  datafromapi = false;
-  CBEs = new CBEs();
+  isLoading = false;
+  cbe = new CBEs();
 
-  cbesLogHeaders: CBEsLogHeader[] = [];
-  uniqueRounds: number[] = [];
-  maxRound: number = 0;
+  cbesLogHeaders: CBEsLogHeader[] | [] = [];
+  remark: string | null | undefined = ''; // Initialize remark with an empty string
+
+  // รอบการแก้ไข
+  rounds: number[] = [];
+  currentRound: number = 1;
+  selectedRound: number = 1;
 
   constructor(
     private route: ActivatedRoute,
@@ -33,72 +37,89 @@ export class CBEsMaturityCreateComponent {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
-      this.id = parseInt(params.get('id') ?? '0'); // Convert string to number
-      console.log('id receive : ', this.id);
+      const idParam = params.get('id');
+      this.id = idParam !== null ? +idParam : 0; // Convert string to number
+
+      if (this.id) {
+        this.loadExistData(this.id);
+      } else {
+        this.isLoading = true;
+        console.log('Exists CBE :', this.cbe);
+      }
     });
+  }
 
-    if (this.id && this.id != 0) {
-      this.cbesService.getById(this.id).subscribe((result: Response) => {
-        this.CBEs = result.data;
-        this.cbesLogHeaders = result.data.cbesLogHeaders;
+  loadExistData(id: number) {
+    // CBEs/editer/:id (แก้ไขข้อมูล CBE)
+    this.isLoading = false;
 
-        console.log('✉ DATA FETCH API :', this.CBEs);
+    this.cbesService.getById(id).subscribe((result: Response) => {
+      this.cbe = result.data;
+      console.log('CBE :', this.cbe);
 
-        // กรองรอบที่ซ้ำกัน
-        this.uniqueRounds = Array.from(
-          new Set(this.cbesLogHeaders.map((log) => log.round))
-        );
-        // หาค่ารอบที่มากที่สุดในปัจจุบัน
-        this.maxRound = Math.max(...this.uniqueRounds);
+      this.cbesLogHeaders = result.data.cbesLogHeaders || [];
+      this.isLoading = true;
 
-        // เพิ่มรอบถัดไป (maxRound + 1)
-        this.uniqueRounds.push(this.maxRound + 1);
+      // Set the remark to the first header's remark or an empty string
+      this.remark = this.cbesLogHeaders?.[0].remark;
 
-        this.datafromapi = true;
-      });
-    } else {
-      this.datafromapi = true;
-    }
+      this.filterAndAddRounds();
+      this.processCBEsData();
+    });
   }
 
   filterAndAddRounds(): void {
-    // กรองรอบที่ซ้ำกัน
-    this.uniqueRounds = Array.from(
-      new Set(this.cbesLogHeaders.map((log) => log.round))
+    this.currentRound = this.cbesLogHeaders[0].round;
+    console.log('Current Round:', this.currentRound);
+
+    // Generate an array of rounds from 1 to currentRound + 1
+    this.rounds = Array.from(
+      { length: this.currentRound + 1 },
+      (_, i) => i + 1
     );
+  }
 
-    // หาค่ารอบที่มากที่สุดในปัจจุบัน
-    this.maxRound = Math.max(...this.uniqueRounds);
+  processCBEsData(): void {
+    const processes = this.cbe.cbesProcesses[0];
 
-    // เพิ่มรอบถัดไป (maxRound + 1)
-    this.uniqueRounds.push(this.maxRound + 1);
+    if (processes && processes.isDeleted != true) {
+      let header = processes.inverseProcessHeader;
+
+      header = this.cbe.cbesProcesses.filter(
+        (p) => p.processHeader?.id == processes.id
+      );
+    }
   }
 
   onSubmit() {
-    console.log('login button work !');
+    this.cbesService.putMaturity(this.cbe).subscribe((result: Response) => {
+      alert(result.message);
+    });
+
+    console.log('Updated CBE & Maturity:', this.cbe);
   }
 
-  addSupervisor(): void {
-    console.log('Added supervisor');
-  }
+  // addSupervisor(): void {
+  //   console.log('Added supervisor');
+  // }
 
-  deletedSupervisor() {
-    console.log('Deleted supervisor');
-  }
+  // deletedSupervisor() {
+  //   console.log('Deleted supervisor');
+  // }
 
-  addSubSupervisor(): void {
-    console.log('Added sub supervisor');
-  }
+  // addSubSupervisor(): void {
+  //   console.log('Added sub supervisor');
+  // }
 
-  deletedSubSupervisor() {
-    console.log('Deleted sub supervisor');
-  }
+  // deletedSubSupervisor() {
+  //   console.log('Deleted sub supervisor');
+  // }
 
-  addSupervisorWithMaturity(): void {
-    console.log('Added supervisor with Maturity');
-  }
+  // addSupervisorWithMaturity(): void {
+  //   console.log('Added supervisor with Maturity');
+  // }
 
-  deletedSupervisorWithMaturity() {
-    console.log('Deleted supervisor');
-  }
+  // deletedSupervisorWithMaturity() {
+  //   console.log('Deleted supervisor');
+  // }
 }

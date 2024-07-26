@@ -59,7 +59,7 @@ export const routes: Routes = [
   { path: 'CBEs/maturity/:id', component: CBEsMaturityCreateComponent },
   { path: 'CBEs/supervisor/create', component: CBEsSupervisorCreateComponent },
   {
-    path: 'CBEs/supervisor/editer/:id',
+    path: 'CBEs/supervisor/editor/:id',
     component: CBEsSupervisorCreateComponent,
   },
   { path: 'CBEs/history/list/:id', component: CBEsHistoryListComponent },

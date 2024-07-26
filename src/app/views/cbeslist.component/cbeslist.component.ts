@@ -21,7 +21,7 @@ export class CBEsListComponent {
   isLoading = false;
   filteredCBEs: CBEs[] = [];
   searchQuery: string = '';
-  usesearch = false;
+  isUseSearch = false;
 
   constructor(
     private cbesService: CBEsService,
@@ -48,9 +48,11 @@ export class CBEsListComponent {
 
   onEdit(editData: string, id: number) {
     console.log('edit id =>', id);
+
     if (editData == 'cbes') {
       this.router.navigate(['/CBEs/editor/', id]);
     }
+
     if (editData == 'responsible') {
       this.router.navigate(['CBEs/supervisor/editor/', id]);
     }
@@ -61,14 +63,14 @@ export class CBEsListComponent {
       this.filteredCBEs = this.AllCBEs.filter((data) =>
         data.thaiName.includes(this.searchQuery)
       );
-      this.usesearch = true;
+      this.isUseSearch = true;
       if (this.filteredCBEs.length == 0) {
         alert('ไม่มีชื่อนี้');
         this.filteredCBEs = this.AllCBEs;
       }
     } else {
       this.filteredCBEs = this.AllCBEs;
-      this.usesearch = false;
+      this.isUseSearch = false;
     }
   }
 
@@ -88,6 +90,7 @@ export class CBEsListComponent {
   onBin() {
     this.router.navigate(['/CBEs/bin/']);
   }
+
   onHistory(id: number) {
     console.log('History CBEs id =>', id);
     this.router.navigate(['CBEs/history/list/', id]);

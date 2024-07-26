@@ -94,4 +94,17 @@ export class CBEsService {
       headers,
     });
   }
+
+  putMaturity(cbe: CBEs) {
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization', `Bearer ${this.token}`);
+    return this.httpClient.put<Response>(
+      `${this.baseURL}/UpdateMaturity`,
+      cbe,
+      {
+        headers,
+      }
+    );
+  }
 }

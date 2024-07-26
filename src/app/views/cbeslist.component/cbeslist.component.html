@@ -20,6 +20,7 @@
           class="input"
         />
       </div>
+
       <button class="ms-2" (click)="onSearch()">ค้นหา</button>
       <button (click)="onBin()">
         <svg
@@ -36,6 +37,7 @@
         </svg>
         กล่องขยะ
       </button>
+
       <button (click)="onCreate()">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -55,6 +57,7 @@
         เพิ่ม
       </button>
     </div>
+
     <table class="mt-3">
       <thead>
         <tr>
@@ -63,8 +66,9 @@
           <th style="width: 400px">จัดการ</th>
         </tr>
       </thead>
+
       <tbody>
-        <ng-container *ngIf="usesearch == true">
+        <ng-container *ngIf="isUseSearch == true">
           <tr *ngFor="let data of filteredCBEs">
             <td class="text-start">{{ data.thaiName }} ({{ data.engName }})</td>
             <td class="text-center" *ngIf="data.isActive == true">ใช้งาน</td>
@@ -155,7 +159,8 @@
             </td>
           </tr>
         </ng-container>
-        <ng-container *ngIf="usesearch == false">
+
+        <ng-container *ngIf="isUseSearch == false">
           <tr *ngFor="let data of AllCBEs">
             <td class="text-start">{{ data.thaiName }} ({{ data.engName }})</td>
             <td class="text-center" *ngIf="data.isActive == true">ใช้งาน</td>
@@ -183,6 +188,7 @@
                   </svg>
                   แก้ไข
                 </button>
+
                 <button
                   style="width: 130px"
                   (click)="onEdit('responsible', data.id)"
