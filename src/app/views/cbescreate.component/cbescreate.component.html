@@ -10,7 +10,7 @@
           id="thainame"
           name="thainame"
           type="text"
-          [(ngModel)]="CBEs.thaiName"
+          [(ngModel)]="cbe.thaiName"
           required
           placeholder="กรอกชื่อภาษาไทย"
         />
@@ -21,7 +21,7 @@
           id="engname"
           name="engname"
           type="text"
-          [(ngModel)]="CBEs.engName"
+          [(ngModel)]="cbe.engName"
           required
           placeholder="กรอกชื่อภาษาอังกฤษ"
         />
@@ -32,7 +32,7 @@
           id="shortname"
           name="shortname"
           type="text"
-          [(ngModel)]="CBEs.shortName"
+          [(ngModel)]="cbe.shortName"
           required
           placeholder="กรอกตัวย่อ"
         />
@@ -75,7 +75,7 @@
             </thead>
             <tbody>
               <!-- Level 1 -->
-              <ng-container *ngFor="let process of CBEs.cbesProcesses">
+              <ng-container *ngFor="let process of cbe.cbesProcesses">
                 <tr *ngIf="!process.isDeleted">
                   <td>
                     <textarea
@@ -171,7 +171,7 @@
             <button
               style="width: fit-content"
               (click)="onSave2Maturity()"
-              [routerLink]="['/CBEs/maturity/', CBEs.id]"
+              [routerLink]="['/CBEs/maturity/', cbe.id]"
             >
               บันทึกและไปกำหนด Maturity
             </button>

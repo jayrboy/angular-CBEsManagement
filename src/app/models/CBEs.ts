@@ -13,7 +13,6 @@ export default class CBEs {
   thaiName: string = '';
   engName: string = '';
   shortName: string = '';
-  detail: string = '';
   isActive: boolean = true;
   createDate: Date = new Date();
   updateDate: Date = new Date();

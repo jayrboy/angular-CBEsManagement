@@ -23,10 +23,10 @@ import CBEsLogType from '../../models/CBEsLogType';
 export class CBEsCreateComponent implements OnInit {
   id: number | undefined = 0;
   isLoading = false;
-  CBEs: CBEs = new CBEs();
+  cbe: CBEs = new CBEs();
 
-  CBEsLogHeaders: CBEsLogHeader[] = [];
-  remark: string = ''; // Initialize remark with an empty string
+  CBEsLogHeaders: CBEsLogHeader[] | [] = [];
+  remark: string | null | undefined = ''; // Initialize remark with an empty string
 
   // รอบการแก้ไข
   rounds: number[] = [];
@@ -45,33 +45,31 @@ export class CBEsCreateComponent implements OnInit {
       this.id = idParam !== null ? +idParam : 0; // Convert string to number
 
       if (this.id) {
-        // CBEs/editer/:id (แก้ไขข้อมูล CBE)
-        this.loadCBEData(this.id);
+        this.loadExistData(this.id);
       } else {
         this.isLoading = true;
         this.rounds = [1]; // Default rounds for new data
         this.currentRound = 1; // Default rounds for new data
-        console.log('CBEs :', this.CBEs);
+        console.log('Exists CBE :', this.cbe);
       }
     });
   }
 
-  loadCBEData(id: number): void {
+  loadExistData(id: number) {
+    // CBEs/editer/:id (แก้ไขข้อมูล CBE)
     this.isLoading = false;
 
     this.cbesService.getById(id).subscribe((result: Response) => {
-      this.CBEs = result.data;
-      this.CBEsLogHeaders = result.data.cbesLogHeaders;
+      this.cbe = result.data;
+      console.log('CBE :', this.cbe);
+
+      this.CBEsLogHeaders = result.data.cbesLogHeaders || [];
       this.isLoading = true;
 
       // Set the remark to the first header's remark or an empty string
-      this.remark =
-        this.CBEsLogHeaders.length > 0 ? this.CBEsLogHeaders[0].remark : '';
-      console.log('✉ Fetch API for Update CBE:', this.CBEs);
+      this.remark = this.CBEsLogHeaders?.[0].remark;
 
       this.filterAndAddRounds();
-
-      // Handle the processes after data is loaded
       this.processCBEsData();
     });
   }
@@ -88,11 +86,13 @@ export class CBEsCreateComponent implements OnInit {
   }
 
   processCBEsData(): void {
-    const processes = this.CBEs.cbesProcesses[0];
+    const processes = this.cbe.cbesProcesses[0];
 
-    if (processes && !processes.isDeleted) {
-      processes.inverseProcessHeader = this.CBEs.cbesProcesses.filter(
-        (pp) => pp.processHeader?.id === processes.id
+    if (processes && processes.isDeleted != true) {
+      let header = processes.inverseProcessHeader;
+
+      header = this.cbe.cbesProcesses.filter(
+        (p) => p.processHeader?.id == processes.id
       );
     }
   }
@@ -123,7 +123,7 @@ export class CBEsCreateComponent implements OnInit {
       updateDate: new Date(),
       isDeleted: false,
       processHeaderId: null, // No parent for the main process
-      cbesId: this.CBEs.id,
+      cbesId: this.cbe.id,
       cbes: new CBEs(), // create a new CBEs object
       cbesIndicators: [],
       cbesMaturities: [],
@@ -135,7 +135,7 @@ export class CBEsCreateComponent implements OnInit {
       processHeader: null,
     };
 
-    this.CBEs.cbesProcesses.push(newProcess);
+    this.cbe.cbesProcesses.push(newProcess);
   }
 
   addChildProcess(parentProcess: CBEsProcess): void {
@@ -147,7 +147,7 @@ export class CBEsCreateComponent implements OnInit {
       updateDate: new Date(),
       isDeleted: false,
       processHeaderId: parentProcess.id, // Assign the parent process id
-      cbesId: this.CBEs.id,
+      cbesId: this.cbe.id,
       cbes: new CBEs(), // create a new CBEs object
       cbesIndicators: [],
       cbesMaturities: [],
@@ -167,16 +167,21 @@ export class CBEsCreateComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.CBEsLogHeaders.length === 0) {
-      console.log('Created CBEs:', this.CBEs);
-
-      this.cbesService.post(this.CBEs).subscribe((result: Response) => {
+    if (this.CBEsLogHeaders?.length === 0) {
+      this.cbesService.post(this.cbe).subscribe((result: Response) => {
         alert(result.message);
       });
 
+      console.log('Created CBEs:', this.cbe);
     } else {
-      console.log('Updated CBEs:', this.CBEs);
-      this.router.navigate(['/CBEs/editor/', this.CBEs.id]);
+      this.cbe.cbesLogHeaders[0].round = this.currentRound;
+
+      this.cbesService.put(this.cbe).subscribe((result: Response) => {
+        alert(result.message);
+        this.router.navigate(['/CBEs/editor/', this.cbe.id]);
+      });
+
+      console.log('Updated CBEs :', this.cbe);
     }
   }
 }
