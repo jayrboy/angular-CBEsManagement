@@ -131,6 +131,7 @@
                         placeholder="20"
                         style="width: 75px; text-align: center"
                         disabled
+                        [name]="'process' + idx"
                         [(ngModel)]="sp.weight"
                       />
                     </td>
@@ -169,7 +170,12 @@
       </div>
 
       <div>
-        <button>บันทึกและไปหน้าแก้ไขหลักเกณฑ์ CBEs</button>
+        <button
+          (click)="onSubmit()"
+          [routerLink]="['/CBEs/editor/' + this.cbe.id]"
+        >
+          บันทึกและไปหน้าแก้ไขหลักเกณฑ์ CBEs
+        </button>
         <button class="ms-3" (click)="onSubmit()">บันทึก</button>
       </div>
     </form>

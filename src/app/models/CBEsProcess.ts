@@ -18,7 +18,7 @@ export default class CBEsProcess {
   cbesMaturities: CBEsMaturities[] = []; // Assuming this is an array of some type
   processHeader: CBEsProcess | null = null; // Reference to parent process
   inverseProcessHeader: CBEsProcess[] = []; // Array of child processes
-  cbes: CBEs = new CBEs(); // Assuming CBEs is imported and defined correctly
+  cbes?: CBEs | null = null; // Assuming CBEs is imported and defined correctly
   cbesIndicators: CbesIndicator[] = [];
   cbesProcessLog: CBEsProcessLog[] = [];
   cbesProcessPlanning: CBEsProcessPlanning[] = [];

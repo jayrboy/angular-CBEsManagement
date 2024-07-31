@@ -124,7 +124,7 @@ export class CBEsCreateComponent implements OnInit {
       isDeleted: false,
       processHeaderId: null, // No parent for the main process
       cbesId: this.cbe.id,
-      cbes: new CBEs(), // create a new CBEs object
+      cbes: null,
       cbesIndicators: [],
       cbesMaturities: [],
       cbesProcessLog: [],
@@ -148,7 +148,7 @@ export class CBEsCreateComponent implements OnInit {
       isDeleted: false,
       processHeaderId: parentProcess.id, // Assign the parent process id
       cbesId: this.cbe.id,
-      cbes: new CBEs(), // create a new CBEs object
+      cbes: null,
       cbesIndicators: [],
       cbesMaturities: [],
       cbesProcessLog: [],
@@ -163,21 +163,26 @@ export class CBEsCreateComponent implements OnInit {
   }
 
   onSave2Maturity() {
+    console.log(this.cbe);
+
     if (this.CBEsLogHeaders?.length === 0) {
       this.cbesService.post(this.cbe).subscribe((result: Response) => {
-        alert(result.message);
-      });
+        // console.log(result);
+        this.cbe.id = result.data.id;
 
-      console.log('Created CBE and Maturity :', this.cbe);
+        alert(result.message);
+
+        this.router.navigate(['/CBEs/maturity/', this.cbe.id]);
+        console.log('Created CBE and Maturity :', this.cbe);
+      });
     } else {
       this.cbe.cbesLogHeaders[0].round = this.currentRound;
 
       this.cbesService.put(this.cbe).subscribe((result: Response) => {
         alert(result.message);
         this.router.navigate(['/CBEs/maturity/', this.cbe.id]);
+        console.log('Updated CBE and Maturity :', this.cbe);
       });
-
-      console.log('Updated CBE and Maturity :', this.cbe);
     }
   }
 

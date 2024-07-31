@@ -55,6 +55,7 @@ export class CBEsMaturityCreateComponent {
 
     this.cbesService.getById(id).subscribe((result: Response) => {
       this.cbe = result.data;
+
       console.log('CBE :', this.cbe);
 
       this.cbesLogHeaders = result.data.cbesLogHeaders || [];
@@ -94,9 +95,18 @@ export class CBEsMaturityCreateComponent {
   onSubmit() {
     this.cbesService.putMaturity(this.cbe).subscribe((result: Response) => {
       alert(result.message);
+      console.log('Result :', result);
     });
 
     console.log('Updated CBE & Maturity:', this.cbe);
+  }
+
+  save2CBEsEditor() {
+    this.cbesService
+      .putMaturity(this.cbe)
+      .subscribe((result: Response) => alert(result.message));
+
+    console.log('Updated CBE & Maturity to Editor ID:', this.cbe);
   }
 
   // addSupervisor(): void {

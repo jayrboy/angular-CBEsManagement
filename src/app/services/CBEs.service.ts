@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import Response from '../models/response';
 import CBEs from '../models/CBEs';
+import { baseURL } from '../baseURL';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CBEsService {
-  private readonly baseURL = 'http://192.168.1.8:8000/api/CBEs';
   private token = localStorage.getItem('Token');
 
   constructor(private httpClient: HttpClient) {}
@@ -17,7 +17,9 @@ export class CBEsService {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Authorization', `Bearer ${this.token}`);
-    return this.httpClient.post<Response>(`${this.baseURL}`, cbe, { headers });
+    return this.httpClient.post<Response>(`${baseURL}/api/CBEs`, cbe, {
+      headers,
+    });
   }
 
   getAll() {
@@ -25,7 +27,7 @@ export class CBEsService {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Authorization', `Bearer ${token}`); // Use Bearer token
-    return this.httpClient.get<Response>(`${this.baseURL}`, { headers });
+    return this.httpClient.get<Response>(`${baseURL}/api/CBEs`, { headers });
   }
 
   getById(id: number) {
@@ -33,7 +35,9 @@ export class CBEsService {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Authorization', `Bearer ${token}`); // Use Bearer token
-    return this.httpClient.get<Response>(`${this.baseURL}/${id}`, { headers });
+    return this.httpClient.get<Response>(`${baseURL}/api/CBEs/${id}`, {
+      headers,
+    });
   }
 
   getCBEsInBin() {
@@ -41,7 +45,9 @@ export class CBEsService {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Authorization', `Bearer ${token}`); // Use Bearer token
-    return this.httpClient.get<Response>(`${this.baseURL}/bin`, { headers });
+    return this.httpClient.get<Response>(`${baseURL}/api/CBEs/bin`, {
+      headers,
+    });
   }
 
   cancelDeleted(id: number) {
@@ -50,7 +56,7 @@ export class CBEsService {
       .set('Content-Type', 'application/json')
       .set('Authorization', `Bearer ${token}`); // Use Bearer token
     return this.httpClient.put<Response>(
-      `${this.baseURL}/bin/CancelDelete/${id}`,
+      `${baseURL}/api/CBEs/bin/CancelDelete/${id}`,
       { headers }
     );
   }
@@ -60,7 +66,7 @@ export class CBEsService {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Authorization', `Bearer ${token}`); // Use Bearer token
-    return this.httpClient.delete<Response>(`${this.baseURL}/${id}`, {
+    return this.httpClient.delete<Response>(`${baseURL}/api/CBEs/${id}`, {
       headers,
     });
   }
@@ -71,7 +77,7 @@ export class CBEsService {
       .set('Content-Type', 'application/json')
       .set('Authorization', `Bearer ${token}`); // Use Bearer token
     return this.httpClient.delete<Response>(
-      `${this.baseURL}/bin/LastDelete/${id}`,
+      `${baseURL}/api/CBEs/bin/LastDelete/${id}`,
       { headers }
     );
   }
@@ -81,7 +87,7 @@ export class CBEsService {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Authorization', `Bearer ${token}`); // Use Bearer token
-    return this.httpClient.get<Response>(`${this.baseURL}/history/${id}`, {
+    return this.httpClient.get<Response>(`${baseURL}/api/CBEs/history/${id}`, {
       headers,
     });
   }
@@ -90,7 +96,7 @@ export class CBEsService {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Authorization', `Bearer ${this.token}`);
-    return this.httpClient.put<Response>(`${this.baseURL}/UpdateCBE`, cbe, {
+    return this.httpClient.put<Response>(`${baseURL}/api/CBEs/UpdateCBE`, cbe, {
       headers,
     });
   }
@@ -100,7 +106,7 @@ export class CBEsService {
       .set('Content-Type', 'application/json')
       .set('Authorization', `Bearer ${this.token}`);
     return this.httpClient.put<Response>(
-      `${this.baseURL}/UpdateMaturity`,
+      `${baseURL}/api/CBEs/UpdateMaturity`,
       cbe,
       {
         headers,
